@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".fragment.SignupFragment">
+
+    <ImageView
+        android:id="@+id/title_image"
+        android:layout_height="150dp"
+        android:layout_width="150dp"
+        android:src="@drawable/dice_1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="70dp"/>
+
+    <EditText
+        android:id="@+id/username_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/title_image"
+        android:layout_marginTop="18dp"
+        android:hint="Name"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edittext_background"
+        android:paddingStart="16dp"/>
+
+    <EditText
+        android:id="@+id/email_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/username_edittext"
+        android:layout_marginTop="18dp"
+        android:hint="Email"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edittext_background"
+        android:paddingStart="16dp"/>
+
+    <EditText
+        android:id="@+id/password_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/email_edittext"
+        android:layout_marginTop="18dp"
+        android:hint="Password"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/edittext_background"
+        android:padding="16dp"/>
+
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/password_edittext"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="18dp"
+        android:text="SignUp"
+        android:background="@drawable/button_background"
+        android:textColor="@color/white"
+        android:textSize="20sp"/>
+
+</RelativeLayout>
