@@ -5,6 +5,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.chatapp.R
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.adapter.UserListAdapter
 import com.example.chatapp.databinding.FragmentListBinding
@@ -37,7 +39,11 @@ class ListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val userListAdapter = UserListAdapter()
+        val userListAdapter = UserListAdapter {
+            val action = ListFragmentDirections.actionListFragmentToChatFragment(it.uid.toString())
+            findNavController().navigate(action)
+        }
+
         binding.listRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.listRecyclerView.adapter = userListAdapter
 

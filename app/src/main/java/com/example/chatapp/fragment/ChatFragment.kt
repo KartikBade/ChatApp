@@ -5,15 +5,84 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.chatapp.R
+import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.chatapp.adapter.ChatAdapter
+import com.example.chatapp.databinding.FragmentChatBinding
+import com.example.chatapp.model.Message
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 
 class ChatFragment : Fragment() {
+
+    private lateinit var binding: FragmentChatBinding
+
+    private lateinit var messageList: ArrayList<Message>
+
+    private lateinit var mDatabaseRef: DatabaseReference
+
+    private lateinit var mAuth: FirebaseAuth
+
+    private lateinit var receiverId: String
+
+    private lateinit var senderId: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_chat, container, false)
+        binding = FragmentChatBinding.inflate(inflater)
+        messageList = ArrayList()
+        mDatabaseRef = FirebaseDatabase.getInstance().reference
+        mAuth = FirebaseAuth.getInstance()
+        senderId = mAuth.currentUser?.uid!!
+
+        val args: ChatFragmentArgs by navArgs()
+        receiverId = args.receiverId
+
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val senderRoom = receiverId + senderId
+        val receiverRoom = senderId + receiverId
+
+        val adapter = ChatAdapter()
+        binding.chatRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.chatRecyclerView.adapter = adapter
+
+        mDatabaseRef.child("chats").child(senderRoom).child("messages").addValueEventListener(object: ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                messageList.clear()
+                for (postSnapshot in snapshot.children) {
+                    val currentMessage = postSnapshot.getValue(Message::class.java)
+                    messageList.add(currentMessage!!)
+                }
+                adapter.submitList(messageList)
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+        binding.btnSend.setOnClickListener {
+            val messageBoxText = binding.tvMessageBox.text.toString().trim()
+            val message = Message(messageBoxText, senderId)
+
+            mDatabaseRef.child("chats")
+                .child(senderRoom)
+                .child("messages")
+                .push()
+                .setValue(message)
+                .addOnSuccessListener {
+                    mDatabaseRef.child("chats")
+                        .child(receiverRoom)
+                        .child("messages")
+                        .push()
+                        .setValue(message)
+                }
+            binding.tvMessageBox.text.clear()
+        }
     }
 }

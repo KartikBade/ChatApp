@@ -12,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth
 class AuthActivity : AppCompatActivity() {
 
     private lateinit var navController: NavController
+
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,7 +23,6 @@ class AuthActivity : AppCompatActivity() {
 
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView) as NavHostFragment
         navController = navHostFragment.navController
-
         setupActionBarWithNavController(navController)
     }
 

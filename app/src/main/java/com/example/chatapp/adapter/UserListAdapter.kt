@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.chatapp.databinding.UserListItemBinding
 import com.example.chatapp.model.User
 
-class UserListAdapter: ListAdapter<User, UserListAdapter.UserListViewHolder>(DiffCallback) {
+class UserListAdapter(private val listener: (User) -> Unit): ListAdapter<User, UserListAdapter.UserListViewHolder>(DiffCallback) {
 
-    class UserListViewHolder(private val binding: UserListItemBinding): RecyclerView.ViewHolder(binding.root) {
+    class UserListViewHolder(val binding: UserListItemBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(currentUser: User) {
             binding.nameTv.text = currentUser.name.toString()
         }
@@ -23,6 +23,9 @@ class UserListAdapter: ListAdapter<User, UserListAdapter.UserListViewHolder>(Dif
     override fun onBindViewHolder(holder: UserListViewHolder, position: Int) {
         val currentUser = getItem(position)
         holder.bind(currentUser)
+        holder.binding.nameTv.setOnClickListener {
+            listener(currentUser)
+        }
     }
 
     companion object DiffCallback: DiffUtil.ItemCallback<User>() {

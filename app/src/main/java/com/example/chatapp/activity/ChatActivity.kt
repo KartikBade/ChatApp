@@ -9,6 +9,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import android.widget.Toast
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupActionBarWithNavController
 import com.example.chatapp.R
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.coroutines.coroutineScope
@@ -18,11 +21,21 @@ class ChatActivity : AppCompatActivity() {
 
     private lateinit var mAuth: FirebaseAuth
 
+    private lateinit var navController: NavController
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat)
 
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.fragmentContainerView2) as NavHostFragment
+        navController = navHostFragment.navController
+        setupActionBarWithNavController(navController)
+
         mAuth = FirebaseAuth.getInstance()
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
