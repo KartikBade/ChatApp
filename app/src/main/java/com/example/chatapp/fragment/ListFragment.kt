@@ -18,9 +18,9 @@ class ListFragment : Fragment() {
 
     private lateinit var binding: FragmentListBinding
 
-    private lateinit var mAuth: FirebaseAuth
-
     private lateinit var mDatabaseRef: DatabaseReference
+
+    private lateinit var mAuth: FirebaseAuth
 
     private lateinit var userList: ArrayList<User>
 
@@ -29,10 +29,9 @@ class ListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentListBinding.inflate(inflater)
-        mAuth = FirebaseAuth.getInstance()
         mDatabaseRef = FirebaseDatabase.getInstance().reference
+        mAuth = FirebaseAuth.getInstance()
         userList = ArrayList()
-
         return binding.root
     }
 
@@ -47,8 +46,9 @@ class ListFragment : Fragment() {
         binding.listRecyclerView.layoutManager = LinearLayoutManager(context)
         binding.listRecyclerView.adapter = userListAdapter
 
-        mDatabaseRef.child("user").addValueEventListener(object: ValueEventListener{
+        mDatabaseRef.child("user").addValueEventListener(object: ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
+                userList.clear()
                 for (postSnapshot in snapshot.children) {
                     val currentUser = postSnapshot.getValue(User::class.java)
                     if (currentUser?.uid != mAuth.currentUser?.uid) {

@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">ChatApp</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="signin_button"><u>Don\'t have an account?</u></string>
+
+    <string name="login_button"><u>Already have an account?</u></string>
 </resources>

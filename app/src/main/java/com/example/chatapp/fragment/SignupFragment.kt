@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.example.chatapp.R
 import com.example.chatapp.activity.ChatActivity
 import com.example.chatapp.databinding.FragmentSignupBinding
@@ -35,6 +36,10 @@ class SignupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        binding.tvLogin.setOnClickListener {
+            findNavController().navigate(R.id.action_signupFragment_to_loginFragment)
+        }
 
         binding.signupButton.setOnClickListener {
 

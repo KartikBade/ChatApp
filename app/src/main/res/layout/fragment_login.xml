@@ -49,16 +49,15 @@
         android:textColor="@color/white"
         android:textSize="20sp"/>
 
-    <Button
-        android:id="@+id/signup_button"
-        android:layout_width="150dp"
+    <TextView
+        android:id="@+id/tv_signup"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/login_button"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="18dp"
-        android:text="SignUp"
-        android:background="@drawable/button_background"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
+        android:layout_marginTop="20dp"
+        android:text="@string/signin_button"
+        android:textColor="@color/material_dynamic_neutral60"
+        android:textSize="16sp"/>
 
 </RelativeLayout>
