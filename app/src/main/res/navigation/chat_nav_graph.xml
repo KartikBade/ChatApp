@@ -22,5 +22,8 @@
         <argument
             android:name="receiverId"
             app:argType="string" />
+        <argument
+            android:name="receiverName"
+            app:argType="string" />
     </fragment>
 </navigation>

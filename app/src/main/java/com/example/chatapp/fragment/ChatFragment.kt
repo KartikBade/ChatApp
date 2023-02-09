@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.chatapp.adapter.ChatAdapter
@@ -26,6 +27,7 @@ class ChatFragment : Fragment() {
     private lateinit var mAuth: FirebaseAuth
 
     private lateinit var receiverId: String
+    private lateinit var receiverName: String
 
     private lateinit var senderId: String
 
@@ -41,6 +43,9 @@ class ChatFragment : Fragment() {
 
         val args: ChatFragmentArgs by navArgs()
         receiverId = args.receiverId
+        receiverName = args.receiverName
+
+        (activity as AppCompatActivity).supportActionBar?.title = receiverName
 
         return binding.root
     }

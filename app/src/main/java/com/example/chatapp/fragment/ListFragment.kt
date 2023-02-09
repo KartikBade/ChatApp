@@ -39,7 +39,7 @@ class ListFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val userListAdapter = UserListAdapter {
-            val action = ListFragmentDirections.actionListFragmentToChatFragment(it.uid.toString())
+            val action = ListFragmentDirections.actionListFragmentToChatFragment(it.uid.toString(), it.name.toString())
             findNavController().navigate(action)
         }
 
